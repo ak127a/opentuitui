@@ -1,0 +1,55 @@
+{
+  "name": "opentuitui",
+  "version": "0.1.0",
+  "description": "Customizable components library built on top of opentui/core",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "demo": "bun run examples/demo.ts",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "tui",
+    "terminal",
+    "cli",
+    "opentui",
+    "components",
+    "text-field",
+    "input",
+    "bun"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ak127a/opentuitui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ak127a/opentuitui/issues"
+  },
+  "homepage": "https://github.com/ak127a/opentuitui#readme",
+  "peerDependencies": {
+    "@opentui/core": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@opentui/core": "^0.1.72",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "bun": ">=1.2.0"
+  }
+}

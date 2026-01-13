@@ -1,0 +1,10 @@
+# Only include built files when publishing
+node_modules/
+src/
+examples/
+tsconfig.json
+*.ts
+!*.d.ts
+.git/
+.vscode/
+.DS_Store
