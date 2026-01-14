@@ -4,7 +4,9 @@ A customizable components library built on top of [opentui/core](https://github.
 
 ## Features
 
-- **TextField**: Customizable text input component with Ctrl+W support for deleting words backward
+- **TextField**: Customizable text input component with:
+  - Ctrl+W support for deleting words backward
+  - Platform-agnostic paste support (Ctrl+V / Cmd+V)
 - Built for **Bun** runtime
 - TypeScript with full type definitions
 - Extensible component architecture
@@ -30,11 +32,28 @@ This library requires `@opentui/core` to be installed:
 bun add @opentui/core
 ```
 
+## Demo
+
+Try out the components in an interactive demo:
+
+```bash
+bun run demo
+```
+
+This will launch a terminal UI showcasing the TextField component with full interactivity.
+
 ## Usage
 
 ### TextField
 
-The `TextField` component extends `InputRenderable` from `@opentui/core` and adds Ctrl+W keyboard shortcut to delete words backward.
+The `TextField` component extends `InputRenderable` from `@opentui/core` and adds:
+- **Ctrl+W**: Delete word backward
+- **Ctrl+V / Cmd+V**: Platform-agnostic paste from system clipboard
+
+The paste functionality works across different platforms:
+- **macOS**: Uses `pbpaste`
+- **Linux**: Supports both Wayland (`wl-paste`) and X11 (`xclip`)
+- **Windows**: Uses PowerShell's `Get-Clipboard`
 
 ```typescript
 import { createCliRenderer, BoxRenderable, TextRenderable } from "@opentui/core";
@@ -51,13 +70,14 @@ async function main() {
   });
 
   const textField = new TextField(renderer, {
-    placeholder: "Type something and try Ctrl+W...",
+    placeholder: "Type something and try Ctrl+W or Ctrl+V...",
     width: 50,
     backgroundColor: "#1f2335",
     focusedBackgroundColor: "#16161e",
     textColor: "#c0caf5",
     cursorColor: "#7aa2f7",
     enableCtrlW: true,
+    enablePaste: true,
   });
 
   textField.on("input", (value) => {
@@ -93,6 +113,7 @@ interface TextFieldOptions {
 
   // TextField-specific option
   enableCtrlW?: boolean; // default: true
+  enablePaste?: boolean; // default: true
 }
 ```
 
@@ -117,63 +138,27 @@ textField.on("enter", (value) => {
 ### Keyboard Shortcuts
 
 - **Ctrl+W**: Delete word backward (enabled by default)
+- **Ctrl+V** (Windows/Linux) or **Cmd+V** (macOS): Paste from system clipboard (enabled by default)
 - All standard `InputRenderable` shortcuts work as expected
 
-## Publishing
+### Platform Requirements for Paste
 
-This library is designed to be published to npm/Bun registries. 
+The paste functionality requires platform-specific clipboard utilities:
+- **macOS**: Built-in `pbpaste` (no additional installation needed)
+- **Linux (Wayland)**: Install `wl-clipboard` (`sudo apt install wl-clipboard`)
+- **Linux (X11)**: Install `xclip` (`sudo apt install xclip`)
+- **Windows**: Built-in PowerShell (no additional installation needed)
 
-### Before Publishing
-
-1. Update the repository URLs in `package.json` with your actual GitHub repository
-2. Update the `author` field in `package.json`
-3. Update the copyright holder in `LICENSE`
-4. Update version using `npm version patch|minor|major`
-
-### To Publish
+## Development
 
 ```bash
 # Build the project
 bun run build
 
-# Publish to npm (requires npm account)
-npm publish
-
-# Or publish with Bun
-bun publish
-```
-
-### Registry Installation
-
-After publishing, users can install with:
-
-```bash
-# From npm
-bun add opentuitui
-
-# From GitHub (before publishing to npm)
-bun add github:yourusername/opentuitui
-```
-
-## Development
-
-### Build
-
-```bash
-bun run build
-```
-
-This compiles TypeScript to JavaScript and generates declaration files in the `dist/` directory.
-
-### Watch Mode
-
-```bash
+# Watch mode during development
 bun run dev
-```
 
-### Run Demo
-
-```bash
+# Run interactive demo
 bun run demo
 ```
 

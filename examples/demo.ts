@@ -30,14 +30,14 @@ async function main() {
 
   const subtitle = new TextRenderable(renderer, {
     id: "subtitle",
-    content: "Try typing and press Ctrl+W to delete the last word",
+    content: "Try typing, press Ctrl+W to delete word, Ctrl+V / Cmd+V to paste",
     fg: "#c0caf5",
   });
   container.add(subtitle);
 
   const textFieldOptions: TextFieldOptions = {
     id: "text-input",
-    placeholder: "Type something here and try Ctrl+W...",
+    placeholder: "Type something here and try Ctrl+W or paste with Ctrl+V...",
     width: 66,
     height: 1,
     backgroundColor: "#1f2335",
@@ -48,6 +48,7 @@ async function main() {
     cursorColor: "#7aa2f7",
     maxLength: 100,
     enableCtrlW: true,
+    enablePaste: true,
   };
 
   const textField = new TextField(renderer, textFieldOptions);
@@ -68,7 +69,7 @@ async function main() {
 
   const hint = new TextRenderable(renderer, {
     id: "hint",
-    content: "Press Ctrl+C to exit | Ctrl+W to delete word backward | Enter to submit",
+    content: "Press Ctrl+C to exit | Ctrl+W to delete word | Ctrl+V/Cmd+V to paste | Enter to submit",
     fg: "#565f89",
     attributes: TextAttributes.DIM,
   });
