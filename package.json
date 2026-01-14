@@ -1,6 +1,6 @@
 {
   "name": "opentuitui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Customizable components library built on top of opentui/core",
   "type": "module",
   "main": "./dist/index.js",
